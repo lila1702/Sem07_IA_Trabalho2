@@ -1,10 +1,11 @@
 import networkx as nx
 import numpy as np
 import matplotlib.pyplot as plt
-import random
 import os
 from src.modules.hill_climbing import hill_climbing_algorithm
 from src.modules.desenhar_grafo import desenhar_grafo_rota
+from src.modules.genetic_algorithm import genetic_algorithm
+from src.modules.tempera_simulada import tempera_simulada
 
 def set_up(filename, solver):
     # Abrir arquivo com as distâncias entre as cidades
@@ -24,11 +25,6 @@ def set_up(filename, solver):
     
     cidade.add_nodes_from(nos_cidades)
 
-    # Desenhar os nós pelo networkx
-    # pos = nx.spring_layout(cidade)
-    # nx.draw_networkx_nodes(cidade, pos, node_size=500, node_color="purple")
-    # nx.draw_networkx_labels(cidade, pos, font_size=12, font_family="Impact", font_color="white")
-
     # Criar lista de adjacência com base na matriz de adjacência, com os pesos de cada aresta
     rotas = []
     for i, rota in enumerate(rotas_matriz):
@@ -41,14 +37,6 @@ def set_up(filename, solver):
     print(rotas)
 
     cidade.add_weighted_edges_from(rotas)
-    # nx.draw_networkx_edges(cidade, pos, width=2, edge_color="gray")
-    # # Desenhar as arestas pelo networkx
-    # edge_labels = nx.get_edge_attributes(cidade, "weight")
-    # nx.draw_networkx_edge_labels(cidade, pos, edge_labels=edge_labels)
-
-    # Mostrar
-    # plt.axis("off")
-    # plt.show()
     
     # Hill Climbing Algorithm
     if (solver == 1):
@@ -56,7 +44,8 @@ def set_up(filename, solver):
         desenhar_grafo_rota(cidade, melhor_rota, melhor_distancia, tempo_percorrido, passos_solucao, melhor_rota[0])
     # Genetic Algorithm
     if (solver == 2):
-        pass
+        melhor_rota, melhor_distancia, tempo_percorrido, passos_solucao = genetic_algorithm(nos_cidades, rotas_matriz)
+        desenhar_grafo_rota(cidade, melhor_rota, melhor_distancia, tempo_percorrido, passos_solucao, melhor_rota[0])
     # Têmpera Simulada
     if (solver == 3):
         pass
@@ -81,5 +70,7 @@ if (__name__ == "__main__"):
                 filename += ".txt"
         if (user_choice == 2):
             set_up(filename, solver=1)
+        if (user_choice == 3):
+            set_up(filename, solver=2)
         
         user_choice = -1

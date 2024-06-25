@@ -45,7 +45,7 @@ def hill_climbing_algorithm(cidades, matriz_adj):
                 vizinho = deepcopy(melhor_rota)
                 vizinho[i], vizinho[j] = vizinho[j], vizinho[i]
                 #print(f"vizinho[i]: {vizinho[i]}, vizinho: {vizinho}")
-                if (vizinho[0] == cidade_inicial):
+                if (vizinho[0] == cidade_inicial): # Apenas rotas que iniciam com a cidade determinada anteriormente
                     vizinhos.append(vizinho)
         
         # Avaliar vizinhos e encontrar o melhor

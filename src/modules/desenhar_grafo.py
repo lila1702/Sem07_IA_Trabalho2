@@ -22,5 +22,7 @@ def desenhar_grafo_rota(grafo, rota, melhor_distancia, tempo_percorrido, passos_
     # Adiciona as legendas fora da área do gráfico
     plt.figtext(0.99, 0.01, f"Melhor Distância: {melhor_distancia}\nTempo de Execução: {tempo_percorrido:.5f} segundos\nPassos: {passos_solucao}", horizontalalignment='right', fontsize=12)
     
+    print(f"A rota iniciando com {cidade_inicial} tem como melhor rota: {rota} e melhor distância: {melhor_distancia}\nCom {passos_solucao} passos em {tempo_percorrido} segundos")
+    
     plt.axis("off")
     plt.show()
