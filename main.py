@@ -11,22 +11,20 @@ arquivo = open(file_path, "r")
 content = arquivo.readlines()
 # Converter para uma matriz de adjacências
 for i, item in enumerate(content):
-    item = item.strip("\n")
-    item = item.split(" ")
-    content[i] = item
-    while ("" in content[i]):
-        content[i].remove("")
+    item = item.strip("\n").split(" ")
+    content[i] = [float(k) for k in item if k != ""]
 
-content = [[float(item) for item in sublist] for sublist in content]
 rotas_matriz = np.array(content)
 
 # Criar nós do grafo (as cidades)
 cidade = nx.Graph()
-cidade.add_nodes_from([i for i in range(1, len(rotas_matriz)+1)])
+nos_cidades = [i for i in range(1, len(rotas_matriz)+1)]
+cidade.add_nodes_from(nos_cidades)
+
 # Desenhar os nós pelo networkx
 pos = nx.spring_layout(cidade)
-nx.draw_networkx_nodes(cidade, pos, node_size=350)
-nx.draw_networkx_labels(cidade, pos, font_size=12, font_family="sans-serif")
+nx.draw_networkx_nodes(cidade, pos, node_size=500, node_color="purple")
+nx.draw_networkx_labels(cidade, pos, font_size=12, font_family="Impact", font_color="white")
 
 # Criar lista de adjacência com base na matriz de adjacência, com os pesos de cada aresta
 rotas = []
@@ -40,7 +38,7 @@ for i, rota in enumerate(rotas_matriz):
 print(rotas)
 
 cidade.add_weighted_edges_from(rotas)
-nx.draw_networkx_edges(cidade, pos, width=2)
+nx.draw_networkx_edges(cidade, pos, width=2, edge_color="gray")
 # Desenhar as arestas pelo networkx
 edge_labels = nx.get_edge_attributes(cidade, "weight")
 nx.draw_networkx_edge_labels(cidade, pos, edge_labels=edge_labels)
@@ -49,3 +47,6 @@ nx.draw_networkx_edge_labels(cidade, pos, edge_labels=edge_labels)
 plt.axis("off")
 plt.show()
 
+print(rotas_matriz)
+print(rotas)
+print(hill_climbing_algorithm(nos_cidades, rotas_matriz))
