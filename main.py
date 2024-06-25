@@ -10,7 +10,11 @@ from src.modules.tempera_simulada import tempera_simulada
 def set_up(filename, solver):
     # Abrir arquivo com as distâncias entre as cidades
     file_path = os.path.join("src", "data", filename)
-    arquivo = open(file_path, "r")
+    try:
+        arquivo = open(file_path, "r")
+    except:
+        print("Erro ao abrir o arquivo. Verifique que o nome do arquivo foi digitado corretamente e que ele se encontra na pasta src/data")
+        return
     content = arquivo.readlines()
     # Converter para uma matriz de adjacências
     for i, item in enumerate(content):
@@ -48,7 +52,8 @@ def set_up(filename, solver):
         desenhar_grafo_rota(cidade, melhor_rota, melhor_distancia, tempo_percorrido, passos_solucao, melhor_rota[0])
     # Têmpera Simulada
     if (solver == 3):
-        pass
+        melhor_rota, melhor_distancia, tempo_percorrido, passos_solucao = tempera_simulada(nos_cidades, rotas_matriz)
+        desenhar_grafo_rota(cidade, melhor_rota, melhor_distancia, tempo_percorrido, passos_solucao, melhor_rota[0])
 
 
 if (__name__ == "__main__"):
