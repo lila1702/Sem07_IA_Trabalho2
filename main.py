@@ -77,5 +77,7 @@ if (__name__ == "__main__"):
             set_up(filename, solver=1)
         if (user_choice == 3):
             set_up(filename, solver=2)
+        if (user_choice == 4):
+            set_up(filename, solver=3)
         
         user_choice = -1
