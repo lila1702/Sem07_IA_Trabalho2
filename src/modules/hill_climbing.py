@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import random
 import time
 from copy import deepcopy
+#from desenhar_grafo import desenhar_grafo_rota
 
 # Distancia total da rota
 def calcular_tamanho_rota(rota, matriz_adj):
@@ -90,17 +91,19 @@ if (__name__ == "__main__"):
     grafo.add_nodes_from(cidades)
     grafo.add_weighted_edges_from(arestas)
     
-    pos = nx.spring_layout(grafo)
-    nx.draw_networkx_nodes(grafo, pos, node_size=650, node_color="purple")
-    nx.draw_networkx_labels(grafo, pos, labels={node: node for node in grafo.nodes()}, font_size=14, font_color="white", font_family="Impact")
-    nx.draw_networkx_edges(grafo, pos, width=2)
-    edge_labels = {(u, v): d['weight'] for u, v, d in grafo.edges(data=True)}
-    nx.draw_networkx_edge_labels(grafo, pos, edge_labels=edge_labels)
+    # pos = nx.spring_layout(grafo)
+    # nx.draw_networkx_nodes(grafo, pos, node_size=650, node_color="purple")
+    # nx.draw_networkx_labels(grafo, pos, labels={node: node for node in grafo.nodes()}, font_size=14, font_color="white", font_family="Impact")
+    # nx.draw_networkx_edges(grafo, pos, width=2)
+    # edge_labels = {(u, v): d['weight'] for u, v, d in grafo.edges(data=True)}
+    # nx.draw_networkx_edge_labels(grafo, pos, edge_labels=edge_labels)
     
-    plt.axis("off")
-    plt.show()
+    # plt.axis("off")
+    # plt.show()
     
     matriz_adj = nx.to_numpy_array(grafo, weight='weight')
     
     melhor_rota, melhor_distancia, tempo_percorrido, passos_solucao = hill_climbing_algorithm(cidades, matriz_adj)
-    print(f"Melhor Rota: {melhor_rota}\nMelhor Distância: {melhor_distancia}\nTempo: {tempo_percorrido:.5f}\nPassos: {passos_solucao}")
+    #print(f"Melhor Rota: {melhor_rota}\nMelhor Distância: {melhor_distancia}\nTempo: {tempo_percorrido:.5f}\nPassos: {passos_solucao}")
+    
+    #desenhar_grafo_rota(grafo, melhor_rota, melhor_distancia, tempo_percorrido, passos_solucao, cidades[0])
